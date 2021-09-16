@@ -1,7 +1,6 @@
 package main;
 
 public class BonusBinarySearch {
-
     /**
      * A binary search implementation for integer arrays.
      *
@@ -14,17 +13,32 @@ public class BonusBinarySearch {
     public static int binarySearch(int[] sortedNumbers, int n) {
         int right = sortedNumbers.length - 1;
         int left = 0;
-        while (right >= left) {
-            int mid = left + ((right - left) / 2);
-            if (sortedNumbers[mid] > n) {
-                right = mid;
-            } else if (sortedNumbers[mid] < n) {
-                left = mid;
-            } else {
-                return mid;
-            }
-        }
-        return -1;
+        return binarySearch(sortedNumbers,left, right, n);
     }
 
+
+    public static int binarySearch(int arr[], int l, int r, int x)
+    {
+        if (r >= l) {
+            int mid = l + (r - l) / 2;
+
+            // If the element is present at the
+            // middle itself
+            if (arr[mid] == x)
+                return mid;
+
+            // If element is smaller than mid, then
+            // it can only be present in left subarray
+            if (arr[mid] > x)
+                return binarySearch(arr, l, mid - 1, x);
+
+            // Else the element can only be present
+            // in right subarray
+            return binarySearch(arr, mid + 1, r, x);
+        }
+
+        // We reach here when element is not present
+        // in array
+        return -1;
+    }
 }
